@@ -53,4 +53,41 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         """Return string representation of user"""
-        return self.email
+        return self.name
+
+
+class Service(models.Model):
+    provider = models.ForeignKey(UserProfile, on_delete=models.CASCADE, limit_choices_to={'type': 'Service provider'})
+    service = models.CharField(max_length=250)
+    cost = models.IntegerField()
+    description = models.TextField()
+
+    def __str__(self):
+        return self.service
+
+
+class ServiceRequest(models.Model):
+    customer = models.ForeignKey(UserProfile, on_delete=models.CASCADE, limit_choices_to={'type': 'Customer'})
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    status_t = [
+        ("Pending", "Pending"),
+        ("Accepted", "Accepted"),
+        ("Rejected", "Rejected"),
+        ("Completed", "Completed")
+    ]
+    status = models.CharField(max_length=15, choices=status_t, default='Pending')
+
+    def __str__(self):
+        return self.customer.name
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    s_request = models.ForeignKey(ServiceRequest, on_delete=models.CASCADE,
+                                  limit_choices_to={'status__in': ['Accepted', 'Completed']})
+    timestamp = models.DateTimeField(auto_now_add=True)
+    comment = models.TextField()
+
+    def __str__(self):
+        return self.comment
