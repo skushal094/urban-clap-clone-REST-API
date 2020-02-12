@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'customuser',
     'provider',
     'customer',
+    "rest_framework.authtoken"
 ]
 
 MIDDLEWARE = [
