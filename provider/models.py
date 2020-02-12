@@ -1,4 +1,4 @@
-from customuser.models import Service
+from customuser.models import Service,ServiceRequest
 
 
 # Create your models here.
