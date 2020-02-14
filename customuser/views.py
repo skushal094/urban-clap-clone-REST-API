@@ -6,7 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
 from .models import Comment, UserProfile
 from django.contrib.auth.hashers import check_password,make_password
-from .serializers import SignUpSerializer, CommentSerializer, UserProfileSerializer
+from .serializers import SignUpSerializer
+from .serializer import CommentSerializer, UserProfileSerializer
 
 
 class SignUpUser(APIView):
