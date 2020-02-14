@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import add_comment , get_comment,change_password,delete_user
+from . import views
 
 urlpatterns = [
- path('add_comment/',add_comment),
- path('getcomment/', get_comment),
- path('changepassword/', change_password),
- path('deleteuser/', delete_user),
-
+    path('register/', views.SignUpUser.as_view()),
+    path('logout/', views.LogoutUser.as_view()),
+    path('add_comment/', views.add_comment),
+   path('getcomment/', views.get_comment),
+   path('changepassword/', views.change_password),
+   path('deleteuser/', views.delete_user),
 ]
