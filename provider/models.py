@@ -1,3 +1,4 @@
-from django.db import models
+from customuser.models import Service,ServiceRequest
+
 
 # Create your models here.

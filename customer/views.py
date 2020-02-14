@@ -1,9 +1,11 @@
-from rest_framework.decorators import api_view
+from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
-from .serializers import ServiceRequestSerializer, ServiceRequestDetailSerializer
+from .serializers import ServiceRequestSerializer, ServiceRequestDetailSerializer, ServiceSerializer
 from rest_framework.response import Response
 from rest_framework import status
-from customuser.models import ServiceRequest
+from customuser.models import ServiceRequest, Service
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view, permission_classes
 
 
 # Create your views here.
@@ -112,3 +114,11 @@ class RetrieveForCustomerRequest(APIView):
                 'message': "Service request for user: {}".format(request.user.name),
                 'data': serializer.data
             }, status=status.HTTP_200_OK)
+
+@csrf_exempt
+@permission_classes([AllowAny,])
+@api_view(['GET',])
+def get_services(request):
+    service = Service.objects.all()
+    serializer = ServiceSerializer(service,many=True)
+    return Response(serializer.data,status=200)

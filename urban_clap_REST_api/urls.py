@@ -22,4 +22,6 @@ urlpatterns = [
     path('customer/', include('customer.urls')),
     path('account/', include('customuser.urls')),
     path('api-token-auth/', views.obtain_auth_token),
+    path('customuser/',include('customuser.urls')),
+    path('provider/',include('provider.urls')),
 ]
